@@ -10,12 +10,7 @@ docker run -p 8080:8080 zeab/buoyservice
 ```
 
 #### Http Endpoints:
-```http
-get /ingress
-post /ingress
-put /ingress
-delete /ingress
-```
+[Swagger](https://github.com/zeab/buoy-service/blob/master/swagger/buoy-service-swagger.yaml)
 
 #### Logging
 Times and connections are all spit out to the console 
