@@ -14,7 +14,7 @@ object Routes extends DirectiveExtensions {
   val livenessPath: String = getEnvVar[String]("LIVENESS_PATH", "liveness")
   val readinessPath: String = getEnvVar[String]("READINESS_PATH", "readiness")
 
-  def allRoutes: Route =
+  def all: Route =
     logRoute { ingressRoute ~ livenessRoute ~ readinessRoute }
 
   //Routes dealing with basic ingress checks
