@@ -5,6 +5,8 @@ import ModuleNames._
 
 object CommandAlias {
 
+  val travisCiPublishAlias: Seq[Def.Setting[_]] =
+    addCommandAlias("travisCi",";test;dp-buoy")
   //List all Publish Alias here
   val allPublishAlias: Seq[Def.Setting[_]] = Seq.empty
   //List all Docker Alias here
@@ -16,7 +18,7 @@ object CommandAlias {
 
   //Group all the commands for use in build.sbt
   val allCommandAlias: Seq[Def.Setting[_]] =
-    allPublishAlias ++ allDockerAlias ++ allAssemblyAlias
+    allPublishAlias ++ allDockerAlias ++ allAssemblyAlias ++ travisCiPublishAlias
 
   //Make both Docker Alias
   def dockerCommands(key:String, modules:String*): Seq[Def.Setting[_]] = {
