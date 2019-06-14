@@ -27,7 +27,7 @@ object BuoyService extends App with Logging {
   implicit val binding: Future[Http.ServerBinding] =
     webServerSource.to(Sink.foreach { connection =>
       log.info("Accepted new connection from {}", connection.remoteAddress)
-      connection.handleWith(Routes.ingressRoute)
+      connection.handleWith(Routes.allRoutes)
     }).run()
   log.info(s"Http Server is now online at http://$webServiceHost:$webServicePort")
 

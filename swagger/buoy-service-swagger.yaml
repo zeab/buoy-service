@@ -1,0 +1,70 @@
+swagger: '2.0'
+info:
+  title: Buoy-Service
+  description: A barebones akka-http service used for debugging and testing ingress routes
+  version: 1.0.0
+host: localhost
+schemes:
+  - http
+basePath: /
+produces:
+  - application/text
+paths:
+  /ingress:
+    get:
+      summary: GetIngress
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: GetIngress
+      tags:
+      - "Ingress"
+    post:
+      summary: PostIngress
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: PostIngress
+      tags:
+      - "Ingress"
+    put:
+      summary: PutIngress
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: PutIngress
+      tags:
+      - "Ingress"
+    delete:
+      summary: DeleteIngress
+      description: |
+        Just returns a message if ingress is working
+      responses:
+        '202':
+          description: DeleteIngress
+      tags:
+      - "Ingress"
+  /readiness: 
+      get:
+        summary: Get Readiness
+        description: |
+          Does a ready check on the service
+        responses:
+          '202':
+            description: GetReadiness
+        tags:
+        - "Readiness"
+  /liveness: 
+      get:
+        summary: Get Liveness
+        description: |
+          Does a live check on the service
+        responses:
+          '202':
+            description: GetLiveness
+        tags:
+        - "Liveness"
+        
