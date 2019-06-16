@@ -11,6 +11,8 @@ import akka.stream.scaladsl.{Sink, Source}
 import com.typesafe.config.ConfigFactory
 //Scala
 import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.duration._
+import scala.concurrent.Await
 
 object BuoyService extends App with Logging {
 
@@ -20,15 +22,24 @@ object BuoyService extends App with Logging {
   implicit val ec: ExecutionContext = system.dispatcher
 
   //Http Server
-  val webServiceHost: String = getEnvVar[String]("WEB_SERVICE_HOST", "0.0.0.0")
-  val webServicePort: Int = getEnvVar[Int]("WEB_SERVICE_PORT", 8080)
-  val webServerSource: Source[Http.IncomingConnection, Future[Http.ServerBinding]] =
-    Http().bind(interface = webServiceHost, webServicePort)
-  implicit val binding: Future[Http.ServerBinding] =
-    webServerSource.to(Sink.foreach { connection =>
+  val httpServiceHost: String = getEnvVar[String]("WEB_SERVICE_HOST", "0.0.0.0")
+  val httpServicePort: Int = getEnvVar[Int]("WEB_SERVICE_PORT", 8080)
+  val httpServerSource: Source[Http.IncomingConnection, Future[Http.ServerBinding]] =
+    Http().bind(interface = httpServiceHost, httpServicePort)
+  implicit val httpBinding: Future[Http.ServerBinding] =
+    httpServerSource.to(Sink.foreach { connection =>
       log.info("Accepted new connection from {}", connection.remoteAddress)
       connection.handleWith(Routes.all)
     }).run()
-  log.info(s"Http Server is now online at http://$webServiceHost:$webServicePort")
+  log.info(s"Http Server is now online at http://$httpServiceHost:$httpServicePort")
+
+  scala.sys.addShutdownHook {
+    httpBinding.onComplete{ _ =>
+      log.info("Http Server is now offline")
+      system.terminate()
+      log.info("Terminated... Exiting")
+      Await.result(system.whenTerminated, 30.seconds)
+    }
+  }
 
 }
