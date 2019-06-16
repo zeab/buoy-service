@@ -1,6 +1,7 @@
 package zeab.buoyservice.webservice
 
 //Imports
+import zeab.akkahttptools.directives.DirectiveExtensions
 import zeab.buoyservice.BuoyService.getEnvVar
 //Java
 import java.util.UUID
