@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
 <configuration>
 
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%msg%n</pattern>
-        </encoder>
-    </appender>
-
-    <appender name="CONSOLE-JSON" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="STDOUT-JSON" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
                 <timestamp>
@@ -36,12 +30,32 @@
         </encoder>
     </appender>
 
-    <logger name="stdout-raw" additivity="false">
-        <appender-ref ref="CONSOLE"/>
+    <appender name="UDP" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
+        <host>${UDP_HOST:-localhost}</host>
+        <port>${UDP_PORT:-8125}</port>
+        <layout class="net.logstash.logback.layout.LogstashLayout"/>
+    </appender>
+
+    <appender name="STDOUT-RAW" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="zeab.buoyservice.RouteTimerEventProcessor" additivity="false">
+        <appender-ref ref="STDOUT"/>
     </logger>
 
-    <root additivity="false">
-        <appender-ref ref="CONSOLE-JSON"/>
+    <logger name="akka" additivity="false">
+        <appender-ref ref="STDOUT-JSON"/>
+    </logger>
+
+    <logger name="udp" additivity="false" level="${UDP_LOG_LEVEL:-OFF}">
+        <appender-ref ref="UDP"/>
+    </logger>
+
+    <root level="${ROOT_LOG_LEVEL:-INFO}">
+
     </root>
 
 </configuration>

@@ -13,4 +13,12 @@ docker run -p 8080:8080 zeab/buoyservice
 [Swagger](https://github.com/zeab/buoy-service/blob/master/swagger/buoy-service-swagger.yaml)
 
 #### Logging
-Times and connections are all spit out to the console 
+Times and connections are all spit out to the console in a json format
+
+#### Environment Variables
+ROOT_LOG_LEVEL
+UDP_LOG_LEVEL
+HTTP_SERVICE_HOST
+HTTP_SERVICE_POST
+UDP_HOST
+UDP_POST
