@@ -24,7 +24,7 @@ object BuoyService extends App with EnvironmentVariables {
   val akkaLogger: LoggingAdapter = system.log
 
   //Start the route timer processor so we can actually see the time events in the logs
-  //system.actorOf(Props[RouteTimerEventProcessor])
+  system.actorOf(Props[RouteTimerEventProcessor])
 
   //Http Server
   val httpServiceHost: String = getEnvVar[String]("HTTP_SERVICE_HOST", "0.0.0.0")

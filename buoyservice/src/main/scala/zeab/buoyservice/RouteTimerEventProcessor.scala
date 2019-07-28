@@ -11,13 +11,13 @@ import org.slf4j.{Logger, LoggerFactory}
 class RouteTimerEventProcessor extends Actor {
 
   val log: LoggingAdapter = Logging(context.system, this)
-  //val udp: Logger = LoggerFactory.getLogger("UDP")
+  val udp: Logger = LoggerFactory.getLogger("UDP")
 
   def receive: Receive = {
     case msg: RouteTimerEvent =>
       log.info(msg.asJson.noSpaces)
-      //udp.info("buoy|c|")
-      //udp.info("buoy|g|")
+      udp.info("buoy|c|")
+      udp.info("buoy|g|")
   }
 
   override def preStart(): Unit = {

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <configuration>
 
+    <!-- Output as json to standard out -->
     <appender name="STDOUT-JSON" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
             <providers>
@@ -30,12 +31,14 @@
         </encoder>
     </appender>
 
+    <!-- Output to a UDP endpoint -->
     <appender name="UDP" class="net.logstash.logback.appender.LogstashUdpSocketAppender">
         <host>${UDP_HOST:-localhost}</host>
         <port>${UDP_PORT:-8125}</port>
         <layout class="net.logstash.logback.layout.LogstashLayout"/>
     </appender>
 
+    <!-- Output to standard out -->
     <appender name="STDOUT-RAW" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%msg%n</pattern>
@@ -43,7 +46,7 @@
     </appender>
 
     <logger name="zeab.buoyservice.RouteTimerEventProcessor" additivity="false">
-        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="STDOUT-RAW"/>
     </logger>
 
     <logger name="akka" additivity="false">
@@ -54,8 +57,6 @@
         <appender-ref ref="UDP"/>
     </logger>
 
-    <root level="${ROOT_LOG_LEVEL:-INFO}">
-
-    </root>
+    <root level="${ROOT_LOG_LEVEL:-ERROR}"/>
 
 </configuration>
