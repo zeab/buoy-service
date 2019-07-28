@@ -1,8 +1,8 @@
-package zeab.buoyservice.webservice
+package zeab.buoyservice.httpservice
 
 //Imports
 import zeab.akkahttptools.directives.DirectiveExtensions
-import zeab.buoyservice.BuoyService.getEnvVar
+import zeab.scalaextras.sys.EnvironmentVariables
 //Java
 import java.util.UUID
 //Akka
@@ -10,13 +10,13 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
 
-object Routes extends DirectiveExtensions {
+object Routes extends DirectiveExtensions with EnvironmentVariables {
 
   val livenessPath: String = getEnvVar[String]("LIVENESS_PATH", "liveness")
   val readinessPath: String = getEnvVar[String]("READINESS_PATH", "readiness")
 
   def all: Route =
-    logRoute { ingressRoute ~ livenessRoute ~ readinessRoute }
+    logRoute() { ingressRoute ~ livenessRoute ~ readinessRoute }
 
   //Routes dealing with basic ingress checks
   def ingressRoute: Route = {
