@@ -6,7 +6,7 @@ object Dependencies {
   //List of Versions
   val V = new {
     val akka                        = "2.5.23"
-    val akkaHttpTools               = "1.0.4"
+    val akkaHttpTools               = "1.1.0"
     val scalaTest                   = "3.0.5"
     val scalaExtras                 = "1.1.8"
     val logbackJson                 = "6.1"
