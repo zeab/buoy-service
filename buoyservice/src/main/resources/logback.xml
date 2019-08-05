@@ -57,6 +57,6 @@
         <appender-ref ref="UDP"/>
     </logger>
 
-    <root level="${ROOT_LOG_LEVEL:-ERROR}"/>
+    <root level="${ROOT_LOG_LEVEL:-INFO}"/>
 
 </configuration>
